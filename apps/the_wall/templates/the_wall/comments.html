@@ -1,0 +1,7 @@
+{% for comment in comments %}
+<div class='comment_div'>
+<p class='comment_from'>{{comment.sender_id.first_name}} {{comment.sender_id.last_name}}</p>
+<p class='comment_time'>{{comment.created_at}}</p>
+<p class='comment'>{{comment.content}}</p>
+</div>
+{% endfor %}

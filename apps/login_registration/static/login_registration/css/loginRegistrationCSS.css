@@ -1,0 +1,180 @@
+.wrapper{
+    border:1px solid black;
+    background:rgb(157, 157, 255);
+    min-width:975px;
+    /* padding:30px; */
+}
+div.header{
+    background:rgb(0, 0, 99);
+    height:100px;
+    padding-top:10px;
+}
+div.header h1{
+    width:fit-content;
+    margin:auto;
+    color:white;
+    margin-top:15px;
+    font-family: 'Lobster Two', cursive;
+    font-size:32pt;
+}
+form .single_input{
+    display:block;
+    margin-bottom:20px;
+    margin-left:30px;
+    margin-right:10px;
+    /* margin:10px 0px; */
+}
+form .single_input>*{
+    display:inline-block;
+    font-size:13pt;
+}
+form .single_input>input{
+    float:right;
+    margin-right:30px;
+    width:225px;
+    border-radius:8px;
+    padding:5px;
+}
+form .single_input_spc{
+    display:block;
+    margin-left:30px;
+}
+form .single_input_spc>*{
+    display:inline-block;
+    font-size:13pt;
+}
+form .single_input_spc>input{
+    margin-right:10px;
+}
+input.submit{
+    font-size:14pt;
+    border:2px solid gold;
+    background:none;
+    color:rgb(225, 225, 255);
+    display:block;
+    margin:auto;
+    width:fit-content;
+    padding:10px 30px;
+    border-radius:10px;
+    margin-bottom:15px;
+    margin-top:10px;
+}
+input.submit:hover{
+    border:2px solid maroon;
+    background:gold;
+    color:maroon;
+}
+input.submit:active{
+    border:2px solid maroon;
+    background:rgb(177, 150, 0);
+    color:rgb(80, 0, 0);
+}
+div.register{
+    padding-top:15px;
+    background:linear-gradient(rgb(128, 0, 0),rgb(88, 0, 0) );
+    border:3px solid gold;
+    border-radius:15px;
+    width:420px;
+    /* margin:30px; */
+    margin-top:30px;
+    display:inline-block;
+    margin-right:20px;
+    text-align: left;
+}
+div.register p{
+    color:rgb(225, 225, 255);
+}
+div.register h2{
+    color:rgb(225, 225, 255);
+    margin:0px;
+    width:fit-content;
+    margin:auto;
+    margin-bottom:20px;
+    margin-top:5px;
+    /* font-style:italic; */
+    color:gold;
+}
+div.login{
+    width:420px;
+    background:linear-gradient(rgb(0, 0, 95), rgb(4, 92, 255));
+    border:3px solid gold;
+    border-radius:15px;
+    display:inline-block;
+    /* margin:30px; */
+    margin-top:30px;
+    vertical-align: top;
+    margin-left:20px;
+    text-align: left;
+}
+div.login h2{
+    margin:0px;
+    width:fit-content;
+    margin:auto;
+    margin-bottom:20px;
+    /* font-style:italic; */
+    color:gold;
+    margin-top:20px;
+}
+div.login p{
+    color:rgb(225, 225, 255);
+}
+div.body{
+    text-align: center;
+}
+input.submit_login{
+    /* margin-top:35px; */
+}
+input.submit_login:hover{
+    color:blue;
+    border:2px solid blue;
+}
+input.submit_login:active{
+    color:rgb(0, 0, 179);
+    border:2px solid rgb(0, 0, 160);
+}
+div.footer{
+    margin-top:30px;
+    height:100px;
+    display:block;
+    background:black;
+    padding-top:25px;
+}
+div.footer p{
+    color:white;
+    margin:auto;
+    width:fit-content;
+}
+div.body>div.register>form>p.red{
+    color:orange;
+    margin:0px;
+    margin-left:30px;
+    margin-bottom:15px;
+    font-style:italic;
+}
+div.register>p.green{
+    color:rgb(0, 170, 0);
+    margin:0px;
+    margin-left:30px;
+    font-style:italic;
+    margin-bottom:10px;
+    font-size:12pt;
+}
+div.login form div.single_input_spc{
+    margin-bottom:0px;
+    padding-top:10px;
+}
+div.body>div.login>form>p.red{
+    color:red;
+    margin:0px;
+    margin-left:30px;
+    margin-bottom:15px;
+    font-style:italic;
+}
+div.login>p.red{
+    color:red;
+    margin:0px;
+    margin-left:30px;
+    margin-bottom:15px;
+    font-style:italic;
+    font-size:12pt;
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coding Dojo Wall</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static 'the_wall/css/wallCSS.css' %}'>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <script>
+        $(document).ready(function(){
+            $('.addComment').submit(function(){
+                console.log('Submitting');
+                $(this).prev().css('display', 'block');
+                return false;
+            })
+            $('.getComments').submit(function(){
+                console.log('getting comments');
+                console.log($(this).children('.post_id').val())
+                post_id=$(this).children('.post_id').val();
+                $.ajax({
+                    method:'POST',
+                    url:'getComments/'+$(this).children('.post_id').val()+'/',
+                    data:$(this).serialize()
+                })
+                .done(function(response){
+                    console.log('Recieved response', response);
+                    // $(this).siblings('.comments_placeholder').html(response);
+                    $('.id_'+post_id).html(response);
+                });
+                return false;
+            });
+            // AJAX ADDING COMMENTS
+            $('.processComment').submit(function(){
+                post_id=$(this).children('.post_id').val();
+                $.ajax({
+                    method:'POST',
+                    url:'processComment/'+post_id + '/',
+                    data:$(this).serialize()
+                })
+                .done(function(response){
+                    $('.hide_this textarea').val('')
+                });
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='header'>
+            <i class="fas fa-bullhorn"></i>
+            <p>Contact.</p>
+        </div>
+        <div class='navbar'>
+            <a href='/logout/'>Logout</a>
+            <p>Welcome, {{first_name}}</p>
+        </div>
+        <div class='body'>
+            <div class='postMessage'>
+                <h2>What's on your mind?</h2>
+                {% for message in post_success %}
+                    <p class='green'>{{message}}</p>
+                {% endfor %}
+                {% for message in post_fail %}
+                    <p class='red'>{{message}}</p>
+                {% endfor %}
+                <form action='processPost/' method='post'>
+                    {% csrf_token %}
+                    <textarea name='message' placeholder='Give the world a status update'></textarea>
+                    <div>
+                        <input type='submit' value='Post'>
+                    </div>
+                </form>
+            </div>
+
+            {% for post in posts %}
+                <div class='otherMessage'>
+                    <p class='person_name'>{{post.sender_id.first_name}} {{post.sender_id.last_name}}</p>
+                    <p class='posted_date'>{{post.created_at}}</p>
+                    {% ifequal post_failID post.id %}
+                        {% for message in comment_fail %}
+                            <p class='red'>{{message}}</p>
+                        {% endfor %}
+                    {% endifequal %}
+                    {% ifequal post_goodID post.id %}
+                        {% for message in comment_success %}
+                            <p class='green'>{{message}}</p>
+                        {% endfor %}
+                    {% endifequal %}
+                    <p class='posted_message'>{{post.content}}</p>
+                    <div>
+                        <form action='processComment/{{post.id}}/' method='post' class='hide_this processComment'>
+                            {% csrf_token %}
+                            <textarea name='comment'></textarea>
+                            <input class='post_id' type='hidden' name='post_id' value={{post.id}}>
+                            <input type='submit' value='Submit'>
+                        </form>
+                        
+                        <form class='addComment' action='#' method='post'>
+                            {% csrf_token %}
+                            <input class='ajaxButton add' type='submit' value='Add Comment'>
+                        </form>
+                        <form class='getComments' action='#' method='post'>
+                            {% csrf_token %}
+                            <input class='post_id' type='hidden' name='post_id' value={{post.id}}>
+                            <input class='ajaxButton view' type='submit' value='View Comments'>
+                        </form>
+                        <div class='id_{{post.id}} comments_placeholder'></div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class='footer'>
+            <p>Created by Ashwin Mahesh</p>
+            <p>Copyright 2018</p>
+        </div>
+    </div>
+</body>
+</html>
